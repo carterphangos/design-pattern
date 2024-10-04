@@ -8,29 +8,47 @@
  * Happy coding! 🚀
  */
 
-// interface Machine {
-//     print(document: string): void;
-//     scan(document: string): void;
-//     fax(document: string): void;
-// }
+export class Printer {
+    print(document: string): void {
+        console.log(`Printing document: ${document}`);
+    }
+}
 
-// class OldFashionedPrinter implements Machine {
-//     print(document: string): void {
-//         console.log(`Printing document: ${document}`);
-//     }
+export class Scanner {
+    scan(document: string): void {
+        console.log(`Scanning document: ${document}`);
+    }
+}
 
-//     scan(document: string): void {
-//         throw new Error("Scan not supported");
-//     }
+export class FaxMachine {
+    fax(document: string): void {
+        console.log(`Faxing document: ${document}`);
+    }
+}
 
-//     fax(document: string): void {
-//         throw new Error("Fax not supported");
-//     }
-// }
+export class MultiFunctionMachine extends Printer {
+    private scanner: Scanner;
+    private faxMachine: FaxMachine;
 
-// const printer = new OldFashionedPrinter();
-// printer.print("Document 1");
+    constructor() {
+        super();
+        this.scanner = new Scanner();
+        this.faxMachine = new FaxMachine();
+    }
 
-// printer.scan("Document 2"); // Lỗi: Scan not supported
-// printer.fax("Document 3");  // Lỗi: Fax not supported
+    scan(document: string): void {
+        this.scanner.scan(document);
+    }
 
+    fax(document: string): void {
+        this.faxMachine.fax(document);
+    }
+}
+
+const printer = new Printer();
+printer.print("Document 1");
+
+const multiFunctionMachine = new MultiFunctionMachine();
+multiFunctionMachine.print("Document 2");
+multiFunctionMachine.scan("Document 3");
+multiFunctionMachine.fax("Document 4");
